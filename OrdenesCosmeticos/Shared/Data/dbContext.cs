@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OrdenesCosmeticos.Shared.Data.Entidades;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrdenesCosmeticos.Shared.Data
 {
-    public class dbContext : DbContext
+    public class dbContext : IdentityDbContext
     {
         public DbSet<Orden> Ordenes { get; set; }
 

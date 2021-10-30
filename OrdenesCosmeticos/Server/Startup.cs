@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OrdenesCosmeticos.Shared.Data;
 using System.Linq;
+using OrdenesCosmeticos.Shared.Data.Entidades;
 
 namespace OrdenesCosmeticos.Server
 {
@@ -34,6 +36,8 @@ namespace OrdenesCosmeticos.Server
             });
 
             services.AddControllersWithViews();
+            //services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationdbContext>().AddDefaultTokenProviders();
+
             services.AddRazorPages();
         }
 

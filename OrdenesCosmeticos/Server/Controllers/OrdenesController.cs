@@ -27,14 +27,34 @@ namespace OrdenesCosmeticos.Server.Controllers
             return context.Ordenes.ToList();
         }
 
+        [HttpGet("{id:int}")]
+        public ActionResult<Orden> Get(int id)
+        {
+            var orden = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            if (orden == null)
+            {
+                return NotFound($"No existe el pais con id igual a {id}.");
+            }
+            return orden;
+        }
+
         [HttpPost]
         public ActionResult<Orden> Post(Orden orden)
         {
-            
-                context.Ordenes.Add(orden);
+            try
+            {
+                
+            context.Ordenes.Add(orden);
                 context.SaveChanges();
                 return orden;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
             
         }
+
+        
     }
 }

@@ -33,18 +33,6 @@ namespace OrdenesCosmeticos.Server
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrdenesCosmeticos", Version = "v1" });
             });
 
-            //.NET3.1
-            //Instala la librería: Microsoft.AspNetCore.Mvc.NewtonsoftJson
-            //services.AddControllers().AddNewtonsoftJson(x =>
-            //    x.SerializerSettings.ReferenceLoopHandling =
-            //    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            //.NET5
-            //services.AddControllersWithViews().AddJsonOptions(x =>
-            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-            //.NET6
-            //services.AddControllersWithViews().AddJsonOptions(x => 
-            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles)
-
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -54,6 +42,9 @@ namespace OrdenesCosmeticos.Server
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json","OrdenesCosmeticos v1"));
+
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
             }
@@ -64,9 +55,6 @@ namespace OrdenesCosmeticos.Server
                 app.UseHsts();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                "OrdenesCosmeticos v1"));
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();

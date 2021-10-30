@@ -21,16 +21,16 @@ namespace OrdenesCosmeticos.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Orden>> Get()
+        public async Task<ActionResult<List<Orden>>> Get()
         {
             //return await context.Paises.Include(x => x.Provincias).ToListAsync();
-            return context.Ordenes.ToList();
+            return await context.Ordenes.ToListAsync();
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<Orden> Get(int id)
+        public async Task<ActionResult<Orden>> Get(int id)
         {
-            var orden = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            var orden = await context.Ordenes.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (orden == null)
             {
                 return NotFound($"No existe el pais con id igual a {id}.");
@@ -39,13 +39,13 @@ namespace OrdenesCosmeticos.Server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Orden> Post(Orden orden)
+        public async Task<ActionResult<Orden>> Post(Orden orden)
         {
             try
             {
                 
-            context.Ordenes.Add(orden);
-                context.SaveChanges();
+                context.Ordenes.Add(orden);
+                await context.SaveChangesAsync();
                 return orden;
             }
             catch (Exception e)
@@ -56,14 +56,14 @@ namespace OrdenesCosmeticos.Server.Controllers
         }
 
          [HttpPut("{id:int}")]
-        public ActionResult Put(int id, [FromBody] Orden orden)
+        public async Task<ActionResult> Put(int id, [FromBody] Orden orden)
         {
             if(id != orden.Id)
             {
                 return BadRequest("Datos incorrectos");
             }
 
-            var pepe = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            var pepe = await context.Ordenes.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (pepe == null)
             {
                 return NotFound("no existe el pais a modificar.");
@@ -73,7 +73,7 @@ namespace OrdenesCosmeticos.Server.Controllers
             try
             {
                 context.Ordenes.Update(pepe);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return Ok("Los datos han sido cambiados");
             }
             catch (Exception e)
@@ -83,9 +83,9 @@ namespace OrdenesCosmeticos.Server.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var orden = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            var orden = await context.Ordenes.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (orden == null)
             {
                 return NotFound($"No existe el pais con id igual a {id}.");
@@ -94,7 +94,7 @@ namespace OrdenesCosmeticos.Server.Controllers
             try
             {
                 context.Ordenes.Remove(orden);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return Ok($"La orden {orden.Compra} de {orden.Usuario} ha sido borrado.");
             }
             catch (Exception e)

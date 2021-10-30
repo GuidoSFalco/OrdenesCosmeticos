@@ -55,6 +55,52 @@ namespace OrdenesCosmeticos.Server.Controllers
             
         }
 
-        
+         [HttpPut("{id:int}")]
+        public ActionResult Put(int id, [FromBody] Orden orden)
+        {
+            if(id != orden.Id)
+            {
+                return BadRequest("Datos incorrectos");
+            }
+
+            var pepe = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            if (pepe == null)
+            {
+                return NotFound("no existe el pais a modificar.");
+            }
+            pepe.Usuario = orden.Usuario;
+            pepe.Compra = orden.Compra;
+            try
+            {
+                context.Ordenes.Update(pepe);
+                context.SaveChanges();
+                return Ok("Los datos han sido cambiados");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var orden = context.Ordenes.Where(x => x.Id == id).FirstOrDefault();
+            if (orden == null)
+            {
+                return NotFound($"No existe el pais con id igual a {id}.");
+            }
+
+            try
+            {
+                context.Ordenes.Remove(orden);
+                context.SaveChanges();
+                return Ok($"La orden {orden.Compra} de {orden.Usuario} ha sido borrado.");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

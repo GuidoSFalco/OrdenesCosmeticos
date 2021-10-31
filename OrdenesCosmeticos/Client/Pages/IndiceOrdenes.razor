@@ -1,15 +1,15 @@
-﻿@page "/ordenes" 
+﻿@page "/ordenes"
 
 <h3>IndiceOrdenes</h3>
 <br />
-<button @onclick="()=>Nuevo=true">Nuevo</button>
+<button class=" btn btn-success" @onclick="()=>nuevo=true">Nuevo</button>
 <br />
 <table>
     <tr>
         <th>Usuario</th>
         <th>Compra</th>
     </tr>
-    @if (ordenes==null)
+    @if (ordenes == null)
     {
         <tr>Cargando...</tr>
     }
@@ -17,34 +17,70 @@
     {
         <tr>No existen ordenes</tr>
     }
-     else
-	{
-	         
-    @foreach (var item in ordenes)
+    else
     {
-<tr>
-    <td>@item.Usuario</td>
-    <td>@item.Compra</td>
-</tr>
-	}
+
+        @foreach (var item in ordenes)
+        {
+            <tr>
+                <td>@item.Usuario</td>
+                <td>@item.Compra</td>
+                <td><button class="btn btn-success" @onclick="()=>Editar(item)">Editar</button></td>
+                <td><button class="btn btn-warning" @onclick="()=>Eliminar(item)">Eliminar</button></td>
+            </tr>
+        }
     }
 </table>
-@if (Nuevo)
+
+@if (nuevo)
+{
+    @if (editar || eliminar)
+    {
+        Cancelar();
+        nuevo = true;
+    }
+    <br />
+    <h3>Nueva orden</h3>
+    <br />
+    <input placeholder="Nombre" @bind="usuario" />
+    <input placeholder="Compra" @bind="compra" />
+    <button class="btn btn-success" @onclick="GrabarNuevo">Grabar</button>
+    <button class="btn btn-info" @onclick="Cancelar">Cancelar</button>
+}
+
+@if (editar)
 {
 
-<br />
-<br />
-<input placeholder="Nombre" @bind="Usuario"/>
-<input placeholder="Compra" @bind="Compra" />
-<button @onclick="AddOrden">Add</button>
+    <br />
+    <h3>Editar orden</h3>
+    <br />
+    <input placeholder="Nombre" @bind="usuario" />
+    <input placeholder="Compra" @bind="compra" />
+    <button class="btn btn-success" @onclick="GrabarEditar">Grabar</button>
+    <button class="btn btn-info" @onclick="Cancelar">Cancelar</button>
+}
+
+@if (eliminar)
+{
+
+    <br />
+    <h3>Eliminar orden</h3>
+    <br />
+    <input placeholder="Nombre" @bind="usuario" />
+    <input placeholder="Compra" @bind="compra" />
+    <button class="btn btn-success" @onclick="GrabarEliminar">Eliminar</button>
+    <button class="btn btn-info" @onclick="Cancelar">Cancelar</button>
 }
 
 @code {
     //List<Orden> ordenes = new List<Orden>();
     List<Orden> ordenes;
-    string Usuario = "";
-    string Compra = "";
-    bool Nuevo = false;
+    string usuario = "";
+    string compra = "";
+    bool nuevo = false;
+    bool editar = false;
+    bool eliminar = false;
+    Orden editarOrden;
 
     protected override void OnInitialized()
     {
@@ -56,14 +92,62 @@
             new Orden() { Usuario = "edro", Compra = "shampoo" }
         };
     }
-    private void AddOrden()
+    private void GrabarNuevo()
     {
         Orden orden = new();
-        orden.Usuario = Usuario;
-        orden.Compra = Compra;
+        orden.Usuario = usuario;
+        orden.Compra = compra;
         ordenes.Add(orden);
-        Usuario = "";
-        Compra = "";
-        Nuevo = false;
+        Cancelar();
+    }
+
+    private void Editar(Orden ordenEditar)
+    {
+        if (nuevo || eliminar)
+        {
+            Cancelar();
+            editar = true;
+        }
+        editar = true;
+        usuario = ordenEditar.Usuario;
+        compra = ordenEditar.Compra;
+        editarOrden = ordenEditar;
+    }
+
+
+    private void GrabarEditar()
+    {
+        ordenes.Remove(editarOrden);
+        ordenes.Add(new Orden() { Usuario = usuario, Compra = compra });
+        Cancelar();
+    }
+
+    private void Eliminar(Orden ordenEliminar)
+    {
+        if (nuevo || editar)
+        {
+            Cancelar();
+            eliminar = true;
+        }
+        eliminar = true;
+        usuario = ordenEliminar.Usuario;
+        compra = ordenEliminar.Compra;
+        editarOrden = ordenEliminar;
+    }
+
+    private void GrabarEliminar()
+    {
+        ordenes.Remove(editarOrden);
+        Cancelar();
+    }
+
+    private void Cancelar()
+    {
+        editarOrden = null;
+        nuevo = false;
+        editar = false;
+        eliminar = false;
+        usuario = "";
+        compra = "";
     }
 }

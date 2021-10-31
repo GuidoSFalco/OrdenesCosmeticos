@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdenesCosmeticos.Server", "OrdenesCosmeticos\Server\OrdenesCosmeticos.Server.csproj", "{75B34096-3574-4D68-AB65-610E2BE58D8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdenesCosmeticos.Server", "OrdenesCosmeticos\Server\OrdenesCosmeticos.Server.csproj", "{75B34096-3574-4D68-AB65-610E2BE58D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdenesCosmeticos.Client", "OrdenesCosmeticos\Client\OrdenesCosmeticos.Client.csproj", "{8800B40E-A278-4FA0-B2D4-166025C9DF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdenesCosmeticos.Client", "OrdenesCosmeticos\Client\OrdenesCosmeticos.Client.csproj", "{8800B40E-A278-4FA0-B2D4-166025C9DF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdenesCosmeticos.Shared", "OrdenesCosmeticos\Shared\OrdenesCosmeticos.Shared.csproj", "{9023A4D3-0035-4D26-AF3A-E569E950FAC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdenesCosmeticos.Shared", "OrdenesCosmeticos\Shared\OrdenesCosmeticos.Shared.csproj", "{9023A4D3-0035-4D26-AF3A-E569E950FAC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

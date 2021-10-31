@@ -1,0 +1,69 @@
+﻿@page "/ordenes" 
+
+<h3>IndiceOrdenes</h3>
+<br />
+<button @onclick="()=>Nuevo=true">Nuevo</button>
+<br />
+<table>
+    <tr>
+        <th>Usuario</th>
+        <th>Compra</th>
+    </tr>
+    @if (ordenes==null)
+    {
+        <tr>Cargando...</tr>
+    }
+    else if (ordenes.Count == 0)
+    {
+        <tr>No existen ordenes</tr>
+    }
+     else
+	{
+	         
+    @foreach (var item in ordenes)
+    {
+<tr>
+    <td>@item.Usuario</td>
+    <td>@item.Compra</td>
+</tr>
+	}
+    }
+</table>
+@if (Nuevo)
+{
+
+<br />
+<br />
+<input placeholder="Nombre" @bind="Usuario"/>
+<input placeholder="Compra" @bind="Compra" />
+<button @onclick="AddOrden">Add</button>
+}
+
+@code {
+    //List<Orden> ordenes = new List<Orden>();
+    List<Orden> ordenes;
+    string Usuario = "";
+    string Compra = "";
+    bool Nuevo = false;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ordenes = new()
+        {
+            new Orden() { Usuario = "Guido", Compra = "jabon" },
+            new Orden() { Usuario = "edro", Compra = "shampoo" }
+        };
+    }
+    private void AddOrden()
+    {
+        Orden orden = new();
+        orden.Usuario = Usuario;
+        orden.Compra = Compra;
+        ordenes.Add(orden);
+        Usuario = "";
+        Compra = "";
+        Nuevo = false;
+    }
+}

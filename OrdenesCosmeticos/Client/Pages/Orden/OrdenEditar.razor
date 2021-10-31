@@ -1,0 +1,32 @@
+﻿@page "/ordenes/editar/{OrdenId}/{Usuario}/{Compra}"
+@inject NavigationManager navigationManager
+
+<h3>Modificar orden</h3>
+<OrdenFormulario onValidSubmit="GrabarModificacion" Orden="orden" onCancel="Cancelar" />
+
+@code {
+    private Orden orden;
+    [Parameter] public int OrdenId { get; set; }
+    [Parameter] public string usuario { get; set; }
+    [Parameter] public string compra { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        orden = new()
+        {
+            Id = OrdenId,
+            Usuario = usuario,
+            Compra = compra
+        };
+    }
+
+    private async Task GrabarModificacion()
+    {
+        Console.WriteLine($"Graba modificacion{orden.Usuario}");
+        navigationManager.NavigateTo("/ordenes");
+    }
+    private async Task Cancelar()
+    {
+        navigationManager.NavigateTo("/ordenes");
+    }
+}

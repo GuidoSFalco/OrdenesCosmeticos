@@ -1,0 +1,18 @@
+﻿@page "/ordenes/crear"
+@inject NavigationManager navigationManager
+<h3>Nueva orden</h3>
+
+<OrdenFormulario onValidSubmit="GrabarNuevo" Orden="orden" onCancel="Cancelar"/>
+
+@code {
+    private Orden orden = new();
+    private async Task GrabarNuevo()
+    {
+        Console.WriteLine($"Graba{orden.Usuario}");
+        navigationManager.NavigateTo("/ordenes");
+    }
+    private async Task Cancelar()
+    {
+        navigationManager.NavigateTo("/ordenes");
+    }
+}

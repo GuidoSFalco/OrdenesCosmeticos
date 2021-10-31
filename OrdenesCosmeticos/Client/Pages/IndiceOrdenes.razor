@@ -2,7 +2,7 @@
 
 <h3>IndiceOrdenes</h3>
 <br />
-<button class=" btn btn-success" @onclick="()=>nuevo=true">Nuevo</button>
+<a class=" btn btn-success" href="ordenes/crear">Nuevo</a>
 <br />
 <table>
     <tr>
@@ -25,13 +25,13 @@
             <tr>
                 <td>@item.Usuario</td>
                 <td>@item.Compra</td>
-                <td><button class="btn btn-success" @onclick="()=>Editar(item)">Editar</button></td>
+                <td><a class="btn btn-success" href="ordenes/editar/@item.Id/@item.Usuario/@item.Compra">Editar</a></td>
                 <td><button class="btn btn-warning" @onclick="()=>Eliminar(item)">Eliminar</button></td>
             </tr>
         }
     }
 </table>
-
+@*
 @if (nuevo)
 {
     @if (editar || eliminar)
@@ -47,6 +47,8 @@
     <button class="btn btn-success" @onclick="GrabarNuevo">Grabar</button>
     <button class="btn btn-info" @onclick="Cancelar">Cancelar</button>
 }
+*@
+
 
 @if (editar)
 {
@@ -74,13 +76,13 @@
 
 @code {
     //List<Orden> ordenes = new List<Orden>();
-    List<Orden> ordenes;
+    List<OrdenesCosmeticos.Shared.Data.Entidades.Orden> ordenes;
     string usuario = "";
     string compra = "";
     bool nuevo = false;
     bool editar = false;
     bool eliminar = false;
-    Orden editarOrden;
+    OrdenesCosmeticos.Shared.Data.Entidades.Orden editarOrden;
 
     protected override void OnInitialized()
     {
@@ -88,20 +90,20 @@
 
         ordenes = new()
         {
-            new Orden() { Usuario = "Guido", Compra = "jabon" },
-            new Orden() { Usuario = "edro", Compra = "shampoo" }
+            new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = "Guido", Compra = "jabon" },
+            new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = "edro", Compra = "shampoo" }
         };
     }
     private void GrabarNuevo()
     {
-        Orden orden = new();
+        OrdenesCosmeticos.Shared.Data.Entidades.Orden orden = new();
         orden.Usuario = usuario;
         orden.Compra = compra;
         ordenes.Add(orden);
         Cancelar();
     }
 
-    private void Editar(Orden ordenEditar)
+    private void Editar(OrdenesCosmeticos.Shared.Data.Entidades.Orden ordenEditar)
     {
         if (nuevo || eliminar)
         {
@@ -118,11 +120,11 @@
     private void GrabarEditar()
     {
         ordenes.Remove(editarOrden);
-        ordenes.Add(new Orden() { Usuario = usuario, Compra = compra });
+        ordenes.Add(new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = usuario, Compra = compra });
         Cancelar();
     }
 
-    private void Eliminar(Orden ordenEliminar)
+    private void Eliminar(OrdenesCosmeticos.Shared.Data.Entidades.Orden ordenEliminar)
     {
         if (nuevo || editar)
         {

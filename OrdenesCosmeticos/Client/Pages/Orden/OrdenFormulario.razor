@@ -1,0 +1,22 @@
+﻿<EditForm Model="Orden" OnInvalidSubmit="onValidSubmit">
+    <div class="form-group">
+        <label>Usuario</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Orden.Usuario" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Compra</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Orden.Compra" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Guardar</button>
+    <button class="btn btn-secondary" @onclick="onCancel" type="button">Cancelar</button>
+</EditForm>
+
+@code {
+    [Parameter] public Orden Orden { get; set; }
+    [Parameter] public EventCallback onValidSubmit { get; set; }
+    [Parameter] public EventCallback onCancel { get; set; }
+}

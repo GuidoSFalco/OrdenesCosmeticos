@@ -2,7 +2,7 @@
 
 <h3>IndiceOrdenes</h3>
 <br />
-<a class=" btn btn-success" href="ordenes/crear">Nuevo</a>
+<button class=" btn btn-success" @onclick="()=>nuevo=true">Nuevo</button>
 <br />
 <table>
     <tr>
@@ -25,13 +25,13 @@
             <tr>
                 <td>@item.Usuario</td>
                 <td>@item.Compra</td>
-                <td><a class="btn btn-success" href="ordenes/editar/@item.Id/@item.Usuario/@item.Compra">Editar</a></td>
+                <td><button class="btn btn-success" @onclick="()=>Editar(item)">Editar</button></td>
                 <td><button class="btn btn-warning" @onclick="()=>Eliminar(item)">Eliminar</button></td>
             </tr>
         }
     }
 </table>
-@*
+
 @if (nuevo)
 {
     @if (editar || eliminar)
@@ -47,7 +47,7 @@
     <button class="btn btn-success" @onclick="GrabarNuevo">Grabar</button>
     <button class="btn btn-info" @onclick="Cancelar">Cancelar</button>
 }
-*@
+
 
 
 @if (editar)

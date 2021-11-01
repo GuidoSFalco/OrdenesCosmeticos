@@ -3,7 +3,8 @@
 
 <h3>Modificar orden</h3>
 <OrdenFormulario onValidSubmit="GrabarModificacion" Orden="orden" onCancel="Cancelar" />
-
+@*
+    
 @code {
     private Orden orden;
     [Parameter] public int OrdenId { get; set; }
@@ -30,3 +31,4 @@
         navigationManager.NavigateTo("/ordenes");
     }
 }
+*@

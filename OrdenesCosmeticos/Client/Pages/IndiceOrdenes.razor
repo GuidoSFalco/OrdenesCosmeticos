@@ -2,7 +2,7 @@
 
 <h3>IndiceOrdenes</h3>
 <br />
-<button class=" btn btn-success" @onclick="()=>nuevo=true">Nuevo</button>
+<button class=" btn btn-success" @onclick="()=>Nuevo=true">Nuevo</button>
 <br />
 <table>
     <tr>
@@ -32,12 +32,12 @@
     }
 </table>
 
-@if (nuevo)
+@if (Nuevo)
 {
     @if (editar || eliminar)
     {
         Cancelar();
-        nuevo = true;
+        Nuevo = true;
     }
     <br />
     <h3>Nueva orden</h3>
@@ -79,7 +79,7 @@
     List<OrdenesCosmeticos.Shared.Data.Entidades.Orden> ordenes;
     string usuario = "";
     string compra = "";
-    bool nuevo = false;
+    bool Nuevo = false;
     bool editar = false;
     bool eliminar = false;
     OrdenesCosmeticos.Shared.Data.Entidades.Orden editarOrden;
@@ -91,7 +91,7 @@
         ordenes = new()
         {
             new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = "Guido", Compra = "jabon" },
-            new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = "edro", Compra = "shampoo" }
+            new OrdenesCosmeticos.Shared.Data.Entidades.Orden() { Usuario = "Pedro", Compra = "shampoo" }
         };
     }
     private void GrabarNuevo()
@@ -105,7 +105,7 @@
 
     private void Editar(OrdenesCosmeticos.Shared.Data.Entidades.Orden ordenEditar)
     {
-        if (nuevo || eliminar)
+        if (Nuevo || eliminar)
         {
             Cancelar();
             editar = true;
@@ -126,7 +126,7 @@
 
     private void Eliminar(OrdenesCosmeticos.Shared.Data.Entidades.Orden ordenEliminar)
     {
-        if (nuevo || editar)
+        if (Nuevo || editar)
         {
             Cancelar();
             eliminar = true;
@@ -146,7 +146,7 @@
     private void Cancelar()
     {
         editarOrden = null;
-        nuevo = false;
+        Nuevo = false;
         editar = false;
         eliminar = false;
         usuario = "";
